@@ -4,12 +4,15 @@
 namespace App\Entity;
 
 
-class Addition
+class Spend
 {
     /** @var int */
     private $id;
 
-    /** @var \DateTime */
+    /** @var string */
+    private $label;
+
+    /** @var \DateTime*/
     private $date;
 
     /** @var float */
@@ -29,6 +32,22 @@ class Addition
     public function setId(int $id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLabel(): string
+    {
+        return $this->label;
+    }
+
+    /**
+     * @param string $label
+     */
+    public function setLabel(string $label): void
+    {
+        $this->label = $label;
     }
 
     /**
