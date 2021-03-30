@@ -12,7 +12,7 @@ final class Customer extends Person
     /**
      * @return int
      */
-    public function getCin(): int
+    public function getCin(): ?int
     {
         return $this->cin;
     }
