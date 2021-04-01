@@ -4,15 +4,12 @@
 namespace App\Entity;
 
 
-class Depenses
+class Gain
 {
     /** @var int */
     private $id;
 
-    /** @var string */
-    private $label;
-
-    /** @var \DateTime*/
+    /** @var \DateTime */
     private $date;
 
     /** @var float */
@@ -32,22 +29,6 @@ class Depenses
     public function setId(int $id): void
     {
         $this->id = $id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLabel(): string
-    {
-        return $this->label;
-    }
-
-    /**
-     * @param string $label
-     */
-    public function setLabel(string $label): void
-    {
-        $this->label = $label;
     }
 
     /**
