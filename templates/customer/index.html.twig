@@ -1,0 +1,20 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    <section class="section">
+        <h3>liste des clients</h3>
+        <a href="{{ path('customer-add') }}">Ajouter un client</a>
+        <div class="main">
+            {% for customer in listecust %}
+                {% include 'customer/customer-card.html.twig' with {
+
+                    id: customer.id,
+                    name: customer.name,
+                    phone: customer.phone,
+                    cin: customer.cin
+                    } only %}
+
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

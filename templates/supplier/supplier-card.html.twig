@@ -1,0 +1,9 @@
+<div class="supplier-card">
+
+    <p>n de fournisseur: {{ id }}</p>
+    <p>nom de fourniseur: {{ name }}</p>
+    <p>telephone: {{ phone }}</p>
+      <a href="{{ path ('supplier-view', {'id': id }) }}">voir</a>
+    <a href="{{ path("supplier-edit" , { 'id' :id}) }}">modifier</a>
+    <a href="{{ path('supplier-delete', {'id': id}) }}">supprimer</a>
+</div>

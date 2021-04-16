@@ -1,0 +1,14 @@
+<div class="c-card-product">
+    <p>client n: {{ id }}</p>
+    <p>nom de client: {{ name }}</p>
+    <p>telephone: {{ phone }}</p>
+    <p>num cin: {{ cin }}</p>
+    <a href="{{ path ('customer-view', {'id': id }) }}">voir</a>
+    <a href="{{ path('customer-edit', {'id': id}) }}">
+        modifier
+    </a>
+    <a href="{{ path('customer-delete', {'id': id}) }}">
+        supp
+    </a>
+
+</div>
