@@ -1,0 +1,17 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    <div class="row">
+        {% if(affichage == null) %}
+            <p>le fournisseur n'existe pas</p>
+        {% else %}
+            {% include "supplier/supplier-card.html.twig" with {
+                id: affichage.id,
+                name: affichage.name,
+                phone: affichage.phone,
+                codeTva: affichage.codeTva
+
+            } only %}
+        {% endif %}
+    </div>
+{% endblock %}

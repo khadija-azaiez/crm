@@ -1,27 +1,43 @@
 <?php
 
-
 namespace App\Entity;
 
+use App\Repository\SupplierRepository;
+use Doctrine\ORM\Mapping as ORM;
 
-final class Supplier extends Person
+/**
+ * @ORM\Entity(repositoryClass=SupplierRepository::class)
+ */
+class Supplier
 {
-    /** @var string */
-    private $codeTva;
+    use Person;
 
     /**
-     * @return string
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
      */
-    public function getCodeTva(): string
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $codeTva;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getCodeTva(): ?string
     {
         return $this->codeTva;
     }
 
-    /**
-     * @param string $codeTva
-     */
-    public function setCodeTva(string $codeTva): void
+    public function setCodeTva(string $codeTva): self
     {
         $this->codeTva = $codeTva;
+
+        return $this;
     }
 }

@@ -1,0 +1,14 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    <div class="row">
+        {% for supplier in suppliers %}
+            {% include "supplier/supplier-card.html.twig" with {
+                id: supplier.id,
+                name: supplier.name,
+                phone: supplier.phone,
+                codeTva: supplier.codeTva
+            } only %}
+        {% endfor %}
+    </div>
+{% endblock %}
