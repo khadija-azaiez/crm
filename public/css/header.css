@@ -1,0 +1,7 @@
+.navbar{
+    background: #a8d1e5;
+    border-radius: 6px;
+}
+.nav-item.active{
+    background: #dfdfdf;
+}
