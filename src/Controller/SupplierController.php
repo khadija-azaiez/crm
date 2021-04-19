@@ -33,9 +33,16 @@ class SupplierController extends AbstractController
     /**
      * @Route ("/supplier", name="supplier-list")
      */
-    public function index(SupplierService $supplierService): Response
+    public function index(Request $request): Response
     {
-        $suppliers = $this->supplierrep->findAll();
+        $name = $request->query->get('nameKey');
+        if(null === $name)
+        { $suppliers = $this->supplierrep->findAll();
+        } else
+        {
+            $suppliers = $this->supplierrep->findBySupplier($name);
+        }
+
         return $this->render('supplier/index.html.twig', [
             'suppliers' => $suppliers
         ]);

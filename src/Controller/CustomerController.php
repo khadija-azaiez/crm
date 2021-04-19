@@ -38,9 +38,15 @@ class CustomerController extends AbstractController
     /**
      * @Route ("/customer", name="customer-list")
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $customer = $this->customerRepository->findAll();
+        $name= $request->query->get('nameKey');
+        if (null === $name) {
+            $customer = $this->customerRepository->findAll();
+        } else {
+            $customer = $this->customerRepository->findByCustomerField($name);
+        }
+
         return $this->render('customer/index.html.twig', [
             'listecust' => $customer
         ]);
