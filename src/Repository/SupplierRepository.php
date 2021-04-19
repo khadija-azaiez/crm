@@ -19,22 +19,21 @@ class SupplierRepository extends ServiceEntityRepository
         parent::__construct($registry, Supplier::class);
     }
 
-    // /**
-    //  * @return Supplier[] Returns an array of Supplier objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /**
+    * @return Supplier[] Returns an array of Supplier objects
+    */
+    public function findBySupplier($value)
     {
         return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
+            ->andWhere('s.name = :val')
             ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
+            ->orderBy('s.name')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Supplier

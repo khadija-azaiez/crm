@@ -21,8 +21,7 @@ class ProductController extends AbstractController
     /** @var ProductRepository */
     private $productRepository;
 
-    /** @var ProductService */
-    private $productService;
+
 
     public function __construct(ProductService $proServ, EntityManagerInterface $entityManager, ProductRepository $productRepository)
     {
