@@ -1,0 +1,37 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+
+    <div class="row mt-4 mb-4">
+        <div class="col-12">
+            <h1>Liste de produits</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12  ">
+            <form class="form-inline" action="{{ path('product-list') }}">
+                    <label for="prix" class="mr-3">Prix</label>
+                    <input class="form-control" type="text" id="prix" name="prixKey" >
+                    <button type="submit" class="btn btn-outline-dark col-12 col-md-2 ml-md-3">recherche</button>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="row mt-4 mb-4">
+        <div class=" col-lg-12" >
+            <a class="btn btn-primary btn float-right" href="{{ path('product-add') }}">Ajouter un produit</a>
+        </div>
+    </div>
+
+    <div class="row">
+        {% for product in porducts %}
+            {% include 'product/product-card.html.twig' with {
+                id: product.id,
+                label: product.label,
+                prix: product.prix
+            } only %}
+        {% endfor %}
+    </div>
+{% endblock %}

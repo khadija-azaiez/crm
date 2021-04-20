@@ -1,84 +1,75 @@
 <?php
 
-
 namespace App\Entity;
 
+use App\Repository\SpendRepository;
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @ORM\Entity(repositoryClass=SpendRepository::class)
+ */
 class Spend
 {
-    /** @var int */
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
     private $id;
 
-    /** @var string */
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $label;
 
-    /** @var \DateTime*/
+    /**
+     * @ORM\Column(type="date")
+     */
     private $date;
 
-    /** @var float */
+    /**
+     * @ORM\Column(type="float")
+     */
     private $montant;
 
-    /**
-     * @return int
-     */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @param int $id
-     */
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLabel(): string
+    public function getLabel(): ?string
     {
         return $this->label;
     }
 
-    /**
-     * @param string $label
-     */
-    public function setLabel(string $label): void
+    public function setLabel(string $label): self
     {
         $this->label = $label;
+
+        return $this;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getDate(): \DateTime
+    public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
     }
 
-    /**
-     * @param \DateTime $date
-     */
-    public function setDate(\DateTime $date): void
+    public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
     }
 
-    /**
-     * @return float
-     */
-    public function getMontant(): float
+    public function getMontant(): ?float
     {
         return $this->montant;
     }
 
-    /**
-     * @param float $montant
-     */
-    public function setMontant(float $montant): void
+    public function setMontant(float $montant): self
     {
         $this->montant = $montant;
+
+        return $this;
     }
 }

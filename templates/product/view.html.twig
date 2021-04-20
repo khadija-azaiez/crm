@@ -1,0 +1,15 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    <div class="row">
+        {% if(affichage == null) %}
+            <p>le produit n'existe pas</p>
+        {% else %}
+            {% include 'product/product-card.html.twig' with {
+                id: affichage.id,
+                label: affichage.label,
+                prix: affichage.prix
+            } only %}
+        {% endif %}
+    </div>
+{% endblock %}

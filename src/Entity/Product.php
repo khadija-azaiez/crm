@@ -1,65 +1,58 @@
 <?php
 
-
 namespace App\Entity;
 
+use App\Repository\ProductRepository;
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @ORM\Entity(repositoryClass=ProductRepository::class)
+ */
 class Product
 {
-    /** @var int */
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
     private $id;
 
-    /** @var string */
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $label;
 
-    /** @var float */
+    /**
+     * @ORM\Column(type="float")
+     */
     private $prix;
 
-    /**
-     * @return int
-     */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @param int $id
-     */
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLabel(): string
+    public function getLabel(): ?string
     {
         return $this->label;
     }
 
-    /**
-     * @param string $label
-     */
-    public function setLabel(string $label): void
+    public function setLabel(string $label): self
     {
         $this->label = $label;
+
+        return $this;
     }
 
-    /**
-     * @return float
-     */
-    public function getPrix(): float
+    public function getPrix(): ?float
     {
         return $this->prix;
     }
 
-    /**
-     * @param float $prix
-     */
-    public function setPrix(float $prix): void
+    public function setPrix(float $prix): self
     {
         $this->prix = $prix;
+
+        return $this;
     }
 }

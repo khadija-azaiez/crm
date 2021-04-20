@@ -1,0 +1,41 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+
+    <div class="row mt-4 mb-4">
+        <div class="col-12">
+            <h1>Liste de clients</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12  ">
+            <form class="form-inline" action="{{ path('customer-list') }}">
+                <label for="name" class="mr-3">nom</label>
+                <input class="form-control" type="text" id="name" name="nameKey">
+                <button type="submit" class="btn btn-outline-dark col-12 mt-2 col-md-2 ml-md-3">recherche</button>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="row mt-4 mb-4">
+        <div class=" col-lg-12">
+            <a class="btn btn-primary btn float-right" href="{{ path('customer-add') }}">Ajouter un client</a>
+        </div>
+    </div>
+
+    <div class="row">
+        {% for customer in listecust %}
+            {% include 'customer/customer-card.html.twig' with {
+
+                id: customer.id,
+                name: customer.name,
+                phone: customer.phone,
+                cin: customer.cin
+            } only %}
+
+        {% endfor %}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    <section class="content">
+
+        {% if (affichcust == null) %}
+            <p>le client n'existe pas</p>
+
+        {% else %}
+
+            {% include 'customer/customer-card.html.twig' with {
+                id: affichcust.id,
+                name: affichcust.name,
+                phone: affichcust.phone,
+                cin: affichcust.cin }
+                only %}
+        {% endif %}
+    </section>
+{% endblock %}

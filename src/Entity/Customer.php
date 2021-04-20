@@ -1,27 +1,43 @@
 <?php
 
-
 namespace App\Entity;
 
+use App\Repository\CustomerRepository;
+use Doctrine\ORM\Mapping as ORM;
 
-final class Customer extends Person
+/**
+ * @ORM\Entity(repositoryClass=CustomerRepository::class)
+ */
+class Customer
 {
-    /** @var int */
-    private $cin;
+    use Person;
 
     /**
-     * @return int
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
      */
-    public function getCin(): ?int
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $cin;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getCin(): ?string
     {
         return $this->cin;
     }
 
-    /**
-     * @param int $cin
-     */
-    public function setCin(int $cin): void
+    public function setCin(string $cin): self
     {
         $this->cin = $cin;
+
+        return $this;
     }
 }

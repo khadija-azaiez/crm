@@ -1,0 +1,33 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-12 ">
+            <form class="form-inline" action="{{ path('supplier-list') }}">
+                <label for="name" class="mr-3">Nom</label>
+                <input type="text" class="form-control" id="name" name="nameKey">
+                <button type="submit" class="btn btn-outline-dark  col-12 col-md-2  ml-md-3 ">Recherche</button>
+            </form>
+        </div>
+
+    </div>
+    <div class="row mt-4 mb-4">
+        <div class="col-12 col-md-12">
+            <a class="btn btn-primary btn float-right" href="{{ path('supplier-add') }}">Ajouter un fournisseur</a>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        {% for supplier in suppliers %}
+            {% include "supplier/supplier-card.html.twig" with {
+                id: supplier.id,
+                name: supplier.name,
+                phone: supplier.phone,
+                codeTva: supplier.codeTva
+            } only %}
+        {% endfor %}
+    </div>
+{% endblock %}

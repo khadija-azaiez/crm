@@ -4,32 +4,18 @@
 namespace App\Entity;
 
 
-abstract class Person
+trait Person
 {
-    /** @var int */
-    private $id;
 
-    /** @var string */
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $name;
 
-    /** @var string */
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $phone;
-
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
 
     /**
      * @return string
