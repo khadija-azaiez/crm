@@ -1,32 +1,43 @@
-<div class="col-md-12">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light pt-3 pb-3">
+<div class=" container mt-3 mb-3">
+    <nav class="navbar navbar-expand-lg navbar-light ">
+        <a class="navbar-brand" href="{{ path('home_page_route') }}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ui-radios-grid" viewBox="0 0 16 16">
+                <path d="M3.5 15a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zm9-9a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zm0 9a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zM16 3.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0zm-9 9a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0zm5.5 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zm-9-11a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm0 2a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+            </svg>
+            CRM
+        </a>
 
         <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="{{ path('home_page_route') }}">CRM</a>
 
-        <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1">
-            <ul class="navbar-nav">
+        <div class="collapse navbar-collapse col-md-6 ml-auto " id="bs-example-navbar-collapse-1">
+            <ul class="navbar-nav ">
                 <li class="nav-item {% if (app.request.attributes.get('_route') starts with 'product-') %} active {% endif %}">
-                    <a class="nav-link " href="{{ path ('product-list') }}">Produit <span class="sr-only">(current)</span></a>
+                    <a class="nav-link pl-2 " href="{{ path ('product-list') }}">PRODUIT <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item {% if (app.request.attributes.get('_route') starts with 'customer-')%} active {% endif %}">
-                    <a class="nav-link" href="{{ path('customer-list') }}">Client</a>
+                    <a class="nav-link pl-2" href="{{ path('customer-list') }}">CLIENT</a>
                 </li>
                 <li class="nav-item {% if (app.request.attributes.get('_route') starts with 'supplier-') %} active {% endif %}">
-                    <a class="nav-link" href="{{ path('supplier-list') }}">Fournisseur</a>
+                    <a class="nav-link pl-2" href="{{ path('supplier-list') }}">FOURNISSEUR</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Caisse</a>
+                    <a class="nav-link pl-2" href="#">CAISSE</a>
                 </li>
             </ul>
 
-            <ul class="navbar-nav ml-md-auto">
-                <li class="nav-item active">
-                    <a class="nav-link btn btn-primary btn" href="#">Se connecter </a>
-                </li>
-            </ul>
+
+            <div class="navbar-nav  ml-md-auto">
+                <div class="icon nav-item active pt-md-0 pb-md-0 btn-connexion">
+                    <a class="btn " href="#"
+                       title="se connecter">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
         </div>
     </nav>
 </div>

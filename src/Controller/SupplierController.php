@@ -1,14 +1,11 @@
 <?php
 
-
 namespace App\Controller;
 
-
 use App\Entity\Supplier;
+use App\Form\SearchSupplierType;
 use App\Form\SupplierType;
 use App\Repository\SupplierRepository;
-use App\Service\SearchService;
-use App\Service\SupplierService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,13 +18,12 @@ class SupplierController extends AbstractController
     private $em;
 
     /** @var SupplierRepository */
-    private $supplierrep;
+    private $supplierRepository;
 
-    public function __construct(EntityManagerInterface $entity, SupplierRepository $supplier)
+    public function __construct(EntityManagerInterface $em, SupplierRepository $supplierRepository)
     {
-        $this->em = $entity;
-        $this->supplierrep = $supplier;
-
+        $this->em = $em;
+        $this->supplierRepository = $supplierRepository;
     }
 
     /**
@@ -35,16 +31,23 @@ class SupplierController extends AbstractController
      */
     public function index(Request $request): Response
     {
-        $name = $request->query->get('nameKey');
-        if(null === $name)
-        { $suppliers = $this->supplierrep->findAll();
-        } else
-        {
-            $suppliers = $this->supplierrep->findBySupplier($name);
+        $showForm = '';
+
+        $form = $this->createForm(SearchSupplierType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $showForm = 'show';
+            $supplier = $form->getData();
+            $suppliers = $this->supplierRepository->findBySupplier($supplier->getName());
+        } else {
+            $suppliers = $this->supplierRepository->findAll();
         }
 
         return $this->render('supplier/index.html.twig', [
-            'suppliers' => $suppliers
+            'form' => $form->createView(),
+            'suppliers' => $suppliers,
+            'show' => $showForm
         ]);
 
     }
@@ -54,7 +57,7 @@ class SupplierController extends AbstractController
      */
     public function view($id): Response
     {
-        $affich = $this->supplierrep->find($id);
+        $affich = $this->supplierRepository->find($id);
 
         return $this->render('supplier/view.html.twig', [
             'affichage' => $affich
@@ -83,17 +86,16 @@ class SupplierController extends AbstractController
 
         return $this->render("supplier/add.html.twig", [
             'form' => $form->createView(),
-            'btnName' => 'ajouter'
+            'mode' => 'Ajouter'
         ]);
     }
 
     /**
      * @Route ("/supplier/edit/{id}", name="supplier-edit")
      */
-
     public function edit($id, Request $request): Response
     {
-        $supplier = $this->supplierrep->find($id);
+        $supplier = $this->supplierRepository->find($id);
         $form = $this->createForm(SupplierType::class, $supplier);
 
         $form->handleRequest($request);
@@ -109,27 +111,19 @@ class SupplierController extends AbstractController
 
         return $this->render("supplier/add.html.twig", [
             'form' => $form->createView(),
-            'btnName' => 'modifier'
+            'mode' => 'Modifier'
         ]);
-
     }
 
     /**
      * @Route ("supplier/delete/{id}", name="supplier-delete")
      */
+    public function delete($id): Response
+    {
+        $supplier = $this->supplierRepository->find($id);
+        $this->em->remove($supplier);
+        $this->em->flush();
 
-    public function delete($id):Response
-{
-    $supplier = $this->supplierrep->find($id);
-    $this->em->remove($supplier);
-    $this->em->flush();
-
-    return $this->redirectToRoute('supplier-list');
-
-
+        return $this->redirectToRoute('supplier-list');
+    }
 }
-
-
-
-}
-
