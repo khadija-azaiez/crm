@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Entity\Customer;
 use App\Form\CustomerType;
+use App\Form\SearchcleintTtpeType;
 use App\Repository\CustomerRepository;
 use App\Service\CustomerService;
 use App\Service\SearchService;
@@ -40,15 +41,22 @@ class CustomerController extends AbstractController
      */
     public function index(Request $request): Response
     {
-        $name= $request->query->get('nameKey');
-        if (null === $name) {
-            $customer = $this->customerRepository->findAll();
+        $showForm = '';
+        $form = $this->createForm(SearchcleintTtpeType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $showForm = 'show';
+            $customers = $form->getData();
+            $customer = $this->customerRepository->findByCustomerField($customers->getName());
         } else {
-            $customer = $this->customerRepository->findByCustomerField($name);
+            $customer = $this->customerRepository->findAll();
         }
 
         return $this->render('customer/index.html.twig', [
-            'listecust' => $customer
+            'form' => $form->createView(),
+            'listecust' => $customer,
+            'show' => $showForm
         ]);
     }
 
@@ -57,69 +65,70 @@ class CustomerController extends AbstractController
      */
     public function view($id): Response
     {
-        $affich= $this->customerRepository->find($id);
+        $affich = $this->customerRepository->find($id);
 
         return $this->render('customer/view.html.twig', [
             'affichcust' => $affich
         ]);
     }
- /**
-  * @Route ("/customer/add", name="customer-add")
-  */
- public function add( Request $request):Response
- {
-     $customer = new Customer();
-     $form = $this->createForm(CustomerType::class, $customer);
 
-     $form->handleRequest($request);
+    /**
+     * @Route ("/customer/add", name="customer-add")
+     */
+    public function add(Request $request): Response
+    {
+        $customer = new Customer();
+        $form = $this->createForm(CustomerType::class, $customer);
 
-     if ($form->isSubmitted() && $form->isValid()) {
-         $this->em->persist($customer);
-         $this->em->flush();
+        $form->handleRequest($request);
 
-         return $this->render('customer/view.html.twig', [
-             'affichcust' => $customer]);
-     }
-     return $this->render("customer/add.html.twig", [
-         'form' => $form->createView(),
-         'btnName' => 'ajouter'
-     ]);
- }
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->persist($customer);
+            $this->em->flush();
+
+            return $this->render('customer/view.html.twig', [
+                'affichcust' => $customer]);
+        }
+        return $this->render("customer/add.html.twig", [
+            'form' => $form->createView(),
+            'mode' => 'Ajouter'
+        ]);
+    }
 
     /**
      * @Route ("/customer/edit/{id}", name="customer-edit")
      */
- public function edit($id, Request $request): Response
- {
+    public function edit($id, Request $request): Response
+    {
 
-     $customer = $this->customerRepository->find($id);
-     $form = $this->createForm(CustomerType::class, $customer);
+        $customer = $this->customerRepository->find($id);
+        $form = $this->createForm(CustomerType::class, $customer);
 
-     $form->handleRequest($request);
+        $form->handleRequest($request);
 
-     if ($form->isSubmitted() && $form->isValid()) {
-         $this->em->merge($customer);
-         $this->em->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->merge($customer);
+            $this->em->flush();
 
-         return $this->render('customer/view.html.twig', [
-             'affichcust' => $customer]);
-     }
-     return $this->render("customer/add.html.twig", [
-         'form' => $form->createView(),
-         'btnName' => 'modifier'
-     ]);
- }
+            return $this->render('customer/view.html.twig', [
+                'affichcust' => $customer]);
+        }
+        return $this->render("customer/add.html.twig", [
+            'form' => $form->createView(),
+            'mode' => 'Modifier'
+        ]);
+    }
 
     /**
      * @Route ("/customer/delete/{id}", name="customer-delete")
      */
- public function delete($id): Response
- {
-     $product= $this->customerRepository->find($id);
+    public function delete($id): Response
+    {
+        $product = $this->customerRepository->find($id);
 
-     $this->em->remove($product);
-     $this->em->flush();
+        $this->em->remove($product);
+        $this->em->flush();
 
-     return $this->redirectToRoute('customer-list');
- }
+        return $this->redirectToRoute('customer-list');
+    }
 }

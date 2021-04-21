@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Form\ProductType;
+use App\Form\SearchProductType;
 use App\Repository\ProductRepository;
 use App\Service\ProductService;
 use App\Service\SearchService;
@@ -22,7 +23,6 @@ class ProductController extends AbstractController
     private $productRepository;
 
 
-
     public function __construct(ProductService $proServ, EntityManagerInterface $entityManager, ProductRepository $productRepository)
     {
         $this->productService = $proServ;
@@ -35,14 +35,23 @@ class ProductController extends AbstractController
      */
     public function index(Request $request): Response
     {
-        $prix = $request->query->get('prixKey');
-        if (null === $prix) {
-            $products = $this->productRepository->findAll();
+        $showForm = true;
+        $form = $this->createForm(SearchProductType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            /** @var Product $product */
+            $product = $form->getData();
+
+            $products = $this->productRepository->findProductsGraterThanValue($product->getPrix());
         } else {
-            $products = $this->productRepository->findProductsGraterThanValue($prix);
+            $showForm = false;
+            $products = $this->productRepository->findAll();
         }
 
         return $this->render("product/index.html.twig", [
+            'form' => $form->createView(),
+            'showForm' => $showForm,
             'porducts' => $products
         ]);
     }
@@ -58,6 +67,7 @@ class ProductController extends AbstractController
             'affichage' => $product,
         ]);
     }
+
 
     /**
      * @Route("/product/add", name="product-add")
@@ -79,9 +89,11 @@ class ProductController extends AbstractController
         }
 
         return $this->render("product/add.html.twig", [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'mode' => 'Ajouter'
         ]);
     }
+
 
     /**
      * @Route("/product/edit/{id}", name="product-edit")
@@ -103,7 +115,8 @@ class ProductController extends AbstractController
         }
 
         return $this->render("product/add.html.twig", [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'mode' => 'Modifier'
         ]);
     }
 

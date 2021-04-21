@@ -2,3 +2,13 @@ html, body {
     height: 100%;
 }
 
+.btn-primary {
+    background: #a8d1e5;
+    border-color: #a8d1e5;
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus, .btn-primary:not(:disabled):not(.disabled):active {
+    background: #FFFFFF;
+    color: #a8d1e5;
+    border-color: #a8d1e5;
+}

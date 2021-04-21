@@ -5,6 +5,7 @@ namespace App\Controller;
 
 
 use App\Entity\Supplier;
+use App\Form\SearchSupplierType;
 use App\Form\SupplierType;
 use App\Repository\SupplierRepository;
 use App\Service\SearchService;
@@ -35,16 +36,23 @@ class SupplierController extends AbstractController
      */
     public function index(Request $request): Response
     {
-        $name = $request->query->get('nameKey');
-        if(null === $name)
-        { $suppliers = $this->supplierrep->findAll();
-        } else
-        {
-            $suppliers = $this->supplierrep->findBySupplier($name);
+        $showForm = '';
+
+        $form = $this->createForm(SearchSupplierType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $showForm = 'show';
+            $supplier = $form->getData();
+            $suppliers = $this->supplierrep->findBySupplier($supplier->getName());
+        } else {
+            $suppliers = $this->supplierrep->findAll();
         }
 
         return $this->render('supplier/index.html.twig', [
-            'suppliers' => $suppliers
+            'form' => $form->createView(),
+            'suppliers' => $suppliers,
+            'show' => $showForm
         ]);
 
     }
@@ -83,7 +91,7 @@ class SupplierController extends AbstractController
 
         return $this->render("supplier/add.html.twig", [
             'form' => $form->createView(),
-            'btnName' => 'ajouter'
+            'mode' => 'Ajouter'
         ]);
     }
 
@@ -109,7 +117,7 @@ class SupplierController extends AbstractController
 
         return $this->render("supplier/add.html.twig", [
             'form' => $form->createView(),
-            'btnName' => 'modifier'
+            'mode' => 'Modifier'
         ]);
 
     }
@@ -118,17 +126,16 @@ class SupplierController extends AbstractController
      * @Route ("supplier/delete/{id}", name="supplier-delete")
      */
 
-    public function delete($id):Response
-{
-    $supplier = $this->supplierrep->find($id);
-    $this->em->remove($supplier);
-    $this->em->flush();
+    public function delete($id): Response
+    {
+        $supplier = $this->supplierrep->find($id);
+        $this->em->remove($supplier);
+        $this->em->flush();
 
-    return $this->redirectToRoute('supplier-list');
+        return $this->redirectToRoute('supplier-list');
 
 
-}
-
+    }
 
 
 }
