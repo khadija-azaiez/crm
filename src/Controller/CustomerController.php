@@ -1,15 +1,12 @@
 <?php
 
-
 namespace App\Controller;
-
 
 use App\Entity\Customer;
 use App\Form\CustomerType;
-use App\Form\SearchcleintTtpeType;
+use App\Form\SearchCustomerType;
 use App\Repository\CustomerRepository;
 use App\Service\CustomerService;
-use App\Service\SearchService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +30,6 @@ class CustomerController extends AbstractController
         $this->customerService = $custser;
         $this->em = $manager;
         $this->customerRepository = $repos;
-
     }
 
     /**
@@ -42,7 +38,7 @@ class CustomerController extends AbstractController
     public function index(Request $request): Response
     {
         $showForm = '';
-        $form = $this->createForm(SearchcleintTtpeType::class);
+        $form = $this->createForm(SearchCustomerType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
@@ -113,6 +109,7 @@ class CustomerController extends AbstractController
             return $this->render('customer/view.html.twig', [
                 'affichcust' => $customer]);
         }
+
         return $this->render("customer/add.html.twig", [
             'form' => $form->createView(),
             'mode' => 'Modifier'
