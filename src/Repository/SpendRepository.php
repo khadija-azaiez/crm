@@ -19,22 +19,31 @@ class SpendRepository extends ServiceEntityRepository
         parent::__construct($registry, Spend::class);
     }
 
-    // /**
-    //  * @return Spend[] Returns an array of Spend objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Spend[] Returns an array of Spend objects
+     */
+    public function findBySpendField($montant, $label)
     {
         return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
+            ->andWhere('s.montant >= :montantRecherche')
+            ->andWhere('s.label LIKE :labelRecherche')
+            ->setParameter('montantRecherche', $montant)
+            ->setParameter('labelRecherche', '%'.$label.'%')
+            ->orderBy('s.montant', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
+
+    public function getAllSpends()
+    {
+        $qb = $this->createQueryBuilder('s')
+            ->select('s.id, s.label, s.date, s.montant, supplier1.id as idSupplier, supplier1.name as nameSupplier')
+            ->leftJoin('s.supplier', 'supplier1')
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
 
     /*
     public function findOneBySomeField($value): ?Spend

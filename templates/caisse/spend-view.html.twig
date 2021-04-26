@@ -1,0 +1,18 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <section class="content">
+        {% if (view == null) %}
+        <p>le client n'existe pas</p>
+
+        {% else %}
+
+        {% include 'caisse/spend-card.html.twig' with {
+        id: view.id,
+        label: view.label,
+        date: view.date|date,
+        montant: view.montant }
+            only %}
+        {% endif %}
+    </section>
+{% endblock %}
