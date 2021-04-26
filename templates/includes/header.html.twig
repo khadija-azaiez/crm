@@ -22,8 +22,15 @@
                 <li class="nav-item {% if (app.request.attributes.get('_route') starts with 'supplier-') %} active {% endif %}">
                     <a class="nav-link pl-2" href="{{ path('supplier-list') }}">FOURNISSEUR</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link pl-2" href="#">CAISSE</a>
+
+                <li class="nav-item dropdown {% if (app.request.attributes.get('_route') starts with 'spend-') %} active {% endif %}">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        CAISSE
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Recettes</a>
+                        <a class="dropdown-item" href="{{ path('spend-list') }}">Dépenses</a>
+                    </div>
                 </li>
             </ul>
 

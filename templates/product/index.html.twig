@@ -34,7 +34,9 @@
             {% include 'product/product-card.html.twig' with {
                 id: product.id,
                 label: product.label,
-                prix: product.prix
+                prix: product.prix,
+                fournisseur_id: product.idsupplier2,
+                fournisseur_name: product.namesupplier2
             } only %}
         {% endfor %}
     </div>

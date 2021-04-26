@@ -10,8 +10,13 @@
                 name: affichage.name,
                 phone: affichage.phone,
                 codeTva: affichage.codeTva
-
             } only %}
+
+            <ul>
+                {% for spend in affichage.spends %}
+                    <li>Dépense : {{ spend.label }} - {{ spend.montant }}</li>
+                {% endfor %}
+            </ul>
         {% endif %}
     </div>
 {% endblock %}

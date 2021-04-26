@@ -19,9 +19,9 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-     /**
-      * @return Product[] Returns an array of Product objects
-      */
+    /**
+     * @return Product[] Returns an array of Product objects
+     */
     public function findProductsGraterThanValue($value)
     {
         return $this->createQueryBuilder('p')
@@ -29,20 +29,16 @@ class ProductRepository extends ServiceEntityRepository
             ->setParameter('val', $value)
             ->orderBy('p.prix', 'DESC')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
 
-    /*
-    public function findOneBySomeField($value): ?Product
+    public function getAllProducts()
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $qb = $this->createQueryBuilder('p')
+            ->select('p.id, p.label, p.prix, supplier2.id as idsupplier2, supplier2.name as namesupplier2')
+            ->leftJoin('p.supplier', 'supplier2');
+
+        return $qb->getQuery()->getResult();
     }
-    */
 }
