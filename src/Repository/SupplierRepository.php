@@ -34,6 +34,16 @@ class SupplierRepository extends ServiceEntityRepository
         ;
     }
 
+    public function getSupllierSpends(int $id)
+    {
+        return $this->createQueryBuilder('s')
+            ->leftJoin('s.spends', 'spends')
+            ->where('s.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
     /*
     public function findOneBySomeField($value): ?Supplier

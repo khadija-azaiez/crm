@@ -46,7 +46,7 @@ class ProductController extends AbstractController
             $products = $this->productRepository->findProductsGraterThanValue($product->getPrix());
         } else {
             $showForm = false;
-            $products = $this->productRepository->findAll();
+            $products = $this->productRepository->getAllProducts();
         }
 
         return $this->render("product/index.html.twig", [
