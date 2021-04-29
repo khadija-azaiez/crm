@@ -1,0 +1,18 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    <section class="content">
+        {% if credit == null %}
+        <p>le credit n'existe pas</p>
+
+        {% else %}
+            {% include "credit/credit-card.html.twig" with{
+                id: credit.id,
+                montant: credit.montant,
+                date: credit.date,
+
+
+            } only %}
+        {% endif %}
+    </section>
+{% endblock %}

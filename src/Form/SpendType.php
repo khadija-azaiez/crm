@@ -26,11 +26,10 @@ class SpendType extends AbstractType
                 'required' => false,
                 'class' => Supplier::class,
                 'placeholder' => 'Choisir un fournisseur',
-                'choice_label' => function(Supplier $supplier) {
-                    return $supplier->getId() .' => '. $supplier->getName();
+                'choice_label' => function (Supplier $supplier) {
+                    return $supplier->getId() . ' => ' . $supplier->getName();
                 }
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
