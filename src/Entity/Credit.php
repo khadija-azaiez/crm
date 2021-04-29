@@ -27,6 +27,12 @@ class Credit
      */
     private $montant;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Customer::class, inversedBy="credits")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $customer;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +58,18 @@ class Credit
     public function setMontant(float $montant): self
     {
         $this->montant = $montant;
+
+        return $this;
+    }
+
+    public function getCustomer(): ?Customer
+    {
+        return $this->customer;
+    }
+
+    public function setCustomer(?Customer $customer): self
+    {
+        $this->customer = $customer;
 
         return $this;
     }

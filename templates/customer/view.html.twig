@@ -14,6 +14,12 @@
                 phone: affichcust.phone,
                 cin: affichcust.cin }
                 only %}
+            <ul>
+                {% for credit in affichcust.credits %}
+                    <li>Credits date: {{ credit.date|date('d/m/Y') }} - montant: {{ credit.montant }}</li>
+                {% endfor %}
+            </ul>
         {% endif %}
+
     </section>
 {% endblock %}

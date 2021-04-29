@@ -19,32 +19,34 @@ class CreditRepository extends ServiceEntityRepository
         parent::__construct($registry, Credit::class);
     }
 
-    // /**
-    //  * @return Credit[] Returns an array of Credit objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Credit[] Returns an array of Credit objects
+     */
+    public function getAllCredits()
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->select('c.id, SUM(c.montant) as montant, MAX(c.date) as date, customer.id as idCustomer, customer.name as nameCustomer')
+            ->leftJoin('c.customer', 'customer')
+            ->groupBy('customer.id')
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+
+
+    public function findCreditByCustomer($value)
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+            ->select('c.id, SUM(c.montant) as montant, MAX(c.date) as date, customer.id as idCustomer, customer.name as nameCustomer')
+            ->leftJoin('c.customer', 'customer')
+            ->andWhere('customer.name LIKE :val')
+            ->setParameter('val', '%'.$value.'%')
+            ->orderBy('customer.name')
+            ->groupBy('customer.id')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Credit
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
