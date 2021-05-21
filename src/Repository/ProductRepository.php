@@ -25,6 +25,8 @@ class ProductRepository extends ServiceEntityRepository
     public function findProductsGraterThanValue($value)
     {
         return $this->createQueryBuilder('p')
+            ->select('p.id, p.label, p.prix, supplier2.id as idsupplier2, supplier2.name as namesupplier2')
+            ->leftJoin('p.supplier', 'supplier2')
             ->where('p.prix >= :val')
             ->setParameter('val', $value)
             ->orderBy('p.prix', 'DESC')

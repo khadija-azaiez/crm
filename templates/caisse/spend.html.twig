@@ -16,8 +16,8 @@
             <a class="btn btn-primary float-right ml-2 " data-toggle="collapse" href="#search"
                role="button" aria-expanded="false"
                aria-controls="collapseExample">
-                +Filtre</a>
-            <a class="btn btn-primary btn float-right" href="{{ path('spend-add') }}">Ajouter </a>
+                {{ 'body.filter'|trans }}</a>
+            <a class="btn btn-primary btn float-right" href="{{ path('spend-add') }}">{{'body.add'|trans }} </a>
         </div>
     </div>
 
@@ -26,7 +26,7 @@
             {{ form_start(form) }}
             {{ form_row(form.label) }}
             {{ form_row(form.montant) }}
-            <button type="submit" class="btn btn-outline-dark col-12 mb-2 mt-2 col-md-2">recherche</button>
+            <button type="submit" class="btn btn-outline-dark col-12 mb-2 mt-2 col-md-2">{{ 'body.search'|trans }}</button>
             {{ form_end(form) }}
         </div>
     </div>

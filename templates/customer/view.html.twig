@@ -1,19 +1,62 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
-    <section class="content">
+    <div class="row">
+        <div class="col-12 col-md-6 mr-auto ml-auto text-center">
+            <h1>Fiche client</h1>
+        </div>
+    </div>
+
+    <div class="row">
+
 
         {% if (affichcust == null) %}
             <p>le client n'existe pas</p>
-
         {% else %}
 
-            {% include 'customer/customer-card.html.twig' with {
-                id: affichcust.id,
-                name: affichcust.name,
-                phone: affichcust.phone,
-                cin: affichcust.cin }
-                only %}
+            <div class="col-12 col-sm-6 col-md-4 pr-0 pl-0 ">
+                {% include 'customer/customer-card.html.twig' with {
+                    className: 'col-12',
+                    id: affichcust.id,
+                    name: affichcust.name,
+                    phone: affichcust.phone,
+                    cin: affichcust.cin }
+                    only %}
+
+                <div class="card-product col-12 mt-2">
+                    <div class="card-body">
+                        <p>Total credit: {{ sum }}</p>
+                        {% if erreur|default %}
+                            <span class="text-danger"> {{ erreur }}</span>
+                        {% endif %}
+                        {{ form_start(form) }}
+                        {{ form_row(form.montant) }}
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-outline-dark btn-primary ">Regler</button>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-8 mt-2 mt-sm-0 mt-md-0 ">
+                {% for credit in affichcust.credits %}
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            Montant: {{ credit.montant }} / Date: {{ credit.date|date('d/m/Y') }}
+                            {% if credit.montant < 0 %}
+                                <span class="badge badge-danger badge-pill">credit</span>
+                            {% else %}
+                                <span class="badge badge-success badge-pill">reglement</span>
+                            {% endif %}
+                        </li>
+                    </ul>
+                {% endfor %}
+            </div>
+
+
+
         {% endif %}
-    </section>
+    </div>
 {% endblock %}
+

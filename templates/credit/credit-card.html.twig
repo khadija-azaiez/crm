@@ -1,17 +1,15 @@
-<div class="card-product {% if className|default %} {{ className }} {% else %} col-12 mb-2 col-sm-6 col-md-4  col-lg-3 {% endif %}">
-
-    <div class="card-body ">
-        <div class="tnfo text-center"> <h3>Information</h3></div>
-        <p>client n: {{ id }}</p>
-        <p>CIN: {{ cin }}</p>
-        <p>Nom de client: {{ name }}</p>
-        <p>Télèphone: {{ phone }}</p>
-
+<div class="card-product col-12 mb-2 col-sm-6 col-md-4 mt-md-3 col-lg-3 ">
+    <div class="card-body">
+        {% if id_customer is defined and id_customer is not empty %}
+            <p>Nom de client: <a href="{{ path('customer-view', {'id': id_customer}) }}">{{ name_customer|default('') }}</a></p>
+        {% endif %}
+        <p>Montant: {{ montant }}</p>
+        <p>Date: {{ date|date('d/m/Y') }}</p>
 
         <div class="row ">
             <div class="col-4 col-md-4 col-lg-4 pl-0 pr-0  text-center ">
 
-                <a class="card-link btn btn-secondary btn-sm ml-1" href="{{ path('customer-view', {'id': id}) }}"
+                <a class="card-link btn btn-secondary btn-sm ml-1" href="{{ path('credit-view', {'id': id}) }}"
                    title="voir">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye"
                          viewBox="0 0 16 16">
@@ -21,7 +19,7 @@
                 </a>
             </div>
             <div class=" col-4 col-md-4 pl-0 pr-0 text-center">
-                <a class="card-link btn btn-secondary btn-sm ml-1 mr-1" href="{{ path('customer-edit', {'id': id}) }}"
+                <a class="card-link btn btn-secondary btn-sm ml-1 mr-1" href="{{ path('credit-edit', {'id': id}) }}"
                    title="modifier">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          class="bi bi-pencil"
@@ -31,7 +29,7 @@
                 </a>
             </div>
             <div class=" col-4 col-md-4 pl-0 pr-0 text-center">
-                <a class="card-link btn btn-secondary btn-sm ml-0 mr-1" href="{{ path('customer-delete', {'id': id}) }}"
+                <a class="card-link btn btn-secondary btn-sm ml-0 mr-1" href="{{ path('credit-delete', {'id': id}) }}"
                    title="supprimer">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          class="bi bi-trash" viewBox="0 0 16 16">
@@ -43,6 +41,4 @@
             </div>
         </div>
     </div>
-
-
 </div>

@@ -14,18 +14,21 @@
         <div class="collapse navbar-collapse col-md-6 ml-auto " id="bs-example-navbar-collapse-1">
             <ul class="navbar-nav ">
                 <li class="nav-item {% if (app.request.attributes.get('_route') starts with 'product-') %} active {% endif %}">
-                    <a class="nav-link pl-2 " href="{{ path ('product-list') }}">PRODUIT <span class="sr-only">(current)</span></a>
+                    <a class="nav-link pl-2 " href="{{ path ('product-list') }}">{{ 'header.menu.product'|trans}} <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item {% if (app.request.attributes.get('_route') starts with 'customer-')%} active {% endif %}">
-                    <a class="nav-link pl-2" href="{{ path('customer-list') }}">CLIENT</a>
+                    <a class="nav-link pl-2" href="{{ path('customer-list') }}">{{ 'header.menu.customer'|trans}}</a>
                 </li>
                 <li class="nav-item {% if (app.request.attributes.get('_route') starts with 'supplier-') %} active {% endif %}">
-                    <a class="nav-link pl-2" href="{{ path('supplier-list') }}">FOURNISSEUR</a>
+                    <a class="nav-link pl-2" href="{{ path('supplier-list') }}">{{ 'header.menu.supplier'|trans}}</a>
+                </li>
+                <li class="nav-item {% if (app.request.attributes.get('_route') starts with 'credit-') %} active {% endif %}">
+                    <a class="nav-link pl-2" href="{{ path('credit-list') }}">{{ 'header.menu.credit'|trans}}</a>
                 </li>
 
                 <li class="nav-item dropdown {% if (app.request.attributes.get('_route') starts with 'spend-') %} active {% endif %}">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        CAISSE
+                        {{ 'header.menu.spend'|trans}}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#">Recettes</a>

@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Credit;
 use App\Entity\Customer;
 use App\Form\CustomerType;
+use App\Form\MontantCreditType;
 use App\Form\SearchCustomerType;
 use App\Repository\CustomerRepository;
 use App\Service\CustomerService;
@@ -59,12 +61,46 @@ class CustomerController extends AbstractController
     /**
      * @Route("/customer/view/{id}", name="customer-view")
      */
-    public function view($id): Response
+    public function view($id, Request $request): Response
     {
-        $affich = $this->customerRepository->find($id);
+        $customer = $this->customerRepository->find($id);
+        $sum = 0;
+
+        /** @var Credit $credit */
+        foreach (  $customer->getCredits() as $credit ) {
+            $sum = $sum + $credit->getMontant();
+        }
+
+
+        $form = $this->createForm(MontantCreditType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            /** @var Credit $reglement */
+            $reglement = $form->getData();
+            if (($sum * -1) < $reglement->getMontant()) {
+                return $this->render('customer/view.html.twig', [
+                    'affichcust' => $customer,
+                    'form' => $form->createView(),
+                    'sum' => $sum,
+                    'erreur' => 'le montant a reglé est sup a votre credit'
+
+                ]);
+
+            }
+            $reglement->setCustomer($customer);
+            $reglement->setDate(new \DateTime('now'));
+
+            $this->em->persist($reglement);
+            $this->em->flush();
+
+            return $this->redirectToRoute('customer-view', ['id' => $id]);
+        }
 
         return $this->render('customer/view.html.twig', [
-            'affichcust' => $affich
+            'affichcust' => $customer,
+            'form' => $form->createView(),
+            'sum' => $sum
+
         ]);
     }
 

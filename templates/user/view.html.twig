@@ -1,0 +1,18 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    <div class="row">
+        {% if(user == null) %}
+            <p>l'utilisateur n'existe pas</p>
+        {% else %}
+
+            {% include 'user/card.html.twig' with{
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                password: user.password
+            } only %}
+        {% endif %}
+    </div>
+{% endblock %}
+
