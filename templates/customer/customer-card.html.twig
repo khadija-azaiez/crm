@@ -1,10 +1,12 @@
-<div class="card-product col-12 mb-2 col-sm-6 col-md-4 mt-md-3 col-lg-3 ">
+<div class="card-product {% if className|default %} {{ className }} {% else %} col-12 mb-2 col-sm-6 col-md-4  col-lg-3 {% endif %}">
 
-    <div class="card-body">
+    <div class="card-body ">
+        <div class="tnfo text-center"> <h3>Information</h3></div>
         <p>client n: {{ id }}</p>
-        <p>nom de client: {{ name }}</p>
-        <p>telephone: {{ phone }}</p>
-        <p>num cin: {{ cin }}</p>
+        <p>CIN: {{ cin }}</p>
+        <p>Nom de client: {{ name }}</p>
+        <p>Télèphone: {{ phone }}</p>
+
 
         <div class="row ">
             <div class="col-4 col-md-4 col-lg-4 pl-0 pr-0  text-center ">
@@ -41,4 +43,6 @@
             </div>
         </div>
     </div>
+
+
 </div>
