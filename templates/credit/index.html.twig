@@ -11,10 +11,10 @@
         <div class=" col-lg-12">
             <a class="btn btn-primary float-right" data-toggle="collapse" href="#search-form" role="button"
                aria-expanded="false" aria-controls="search-form">
-                + Filtre
+                {{'body.filter'|trans }}
             </a>
 
-            <a class="btn btn-primary float-right mr-2" href="{{ path('credit-add') }}">Ajouter credit</a>
+            <a class="btn btn-primary float-right mr-2" href="{{ path('credit-add') }}">{{'body.add'|trans }}</a>
         </div>
     </div>
 
@@ -22,7 +22,7 @@
         <div class="col-12 collapse {% if show is same as true %} show {% endif %}" id="search-form">
             {{ form_start(form) }}
             {{ form_row(form.name) }}
-            <button type="submit" class="btn btn-outline-dark col-12 mb-2 mt-2 col-md-2">Recherche</button>
+            <button type="submit" class="btn btn-outline-dark col-12 mb-2 mt-2 col-md-2">{{'body.search'|trans }}</button>
             {{ form_end(form) }}
         </div>
     </div>

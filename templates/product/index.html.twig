@@ -4,17 +4,17 @@
 
     <div class="row mt-4 mb-4">
         <div class="col-12">
-            <h1>Liste de produits</h1>
+            <h1> {{ 'body.list'|trans }}</h1>
         </div>
     </div>
 
     <div class="row mt-4 mb-4">
         <div class=" col-lg-12" >
             <a class="btn btn-primary float-right" data-toggle="collapse" href="#search-form" role="button" aria-expanded="false" aria-controls="search-form">
-                + Filtre
+                 {{ 'body.filter'|trans }}
             </a>
 
-            <a class="btn btn-primary float-right mr-2" href="{{ path('product-add') }}">Ajouter un produit</a>
+            <a class="btn btn-primary float-right mr-2" href="{{ path('product-add') }}">{{ 'body.add'|trans }}</a>
         </div>
     </div>
 
@@ -23,7 +23,7 @@
             {{ form_start(form) }}
                 {{ form_row(form.prix) }}
 
-                <button type="submit" class="btn btn-outline-dark col-12 mb-2 mt-2 col-md-2">recherche</button>
+                <button type="submit" class="btn btn-outline-dark col-12 mb-2 mt-2 col-md-2">{{ 'body.search'|trans }}</button>
             {{ form_end(form) }}
         </div>
     </div>

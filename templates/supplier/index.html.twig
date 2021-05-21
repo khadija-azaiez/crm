@@ -11,9 +11,9 @@
     <div class="row mt-4 mb-4">
         <div class="col-12 col-md-12">
             <a class="btn btn-primary  ml-2 float-right" data-toggle="collapse" href="#search-fournisseur" role="button" aria-expanded="false" aria-controls="collapseExample">
-                +filtre</a>
+                {{'body.filter'|trans }}</a>
 
-            <a class="btn btn-primary btn float-right" href="{{ path('supplier-add') }}">Ajouter un fournisseur</a>
+            <a class="btn btn-primary btn float-right" href="{{ path('supplier-add') }}">{{'body.add'|trans }}</a>
 
         </div>
 
@@ -23,7 +23,7 @@
         <div class="collapse  {{ show }} col-12" id="search-fournisseur" >
             {{ form_start(form) }}
             {{ form_row(form.name) }}
-                <button type="submit" class="btn btn-outline-dark  col-12 mb-2 mt-2 col-md-2  ">Recherche</button>
+                <button type="submit" class="btn btn-outline-dark  col-12 mb-2 mt-2 col-md-2  ">{{'body.search'|trans }}</button>
             {{ form_end(form) }}
             </form>
         </div>

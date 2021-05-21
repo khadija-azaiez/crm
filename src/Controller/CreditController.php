@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Entity\Credit;
 use App\Entity\Customer;
 use App\Form\CreditType;
+use App\Form\MontantCreditType;
 use App\Form\SearchCustomerType;
 use App\Repository\CreditRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -44,14 +45,14 @@ class CreditController extends AbstractController
             $customer = $form->getdata();
             $credit = $this->creditRepository->findCreditByCustomer($customer->getname());
 
-        } else{
+        } else {
             $show = false;
             $credit = $this->creditRepository->getAllCredits();
         }
 
         return $this->render("credit/index.html.twig", [
             'form' => $form->createView(),
-            'show' =>$show,
+            'show' => $show,
             'credits' => $credit
         ]);
 
@@ -81,6 +82,11 @@ class CreditController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $ancienMontant = $credit->getMontant();
+            $nouveauMontant = $ancienMontant * -1;
+
+
+            $credit->setMontant($nouveauMontant);
             $this->em->persist($credit);
             $this->em->flush();
 

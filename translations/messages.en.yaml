@@ -1,0 +1,13 @@
+header:
+      menu:
+          product: Product
+          customer: Customer
+          supplier: Supplier
+          credit: Credit
+          spend: Spend
+
+body:
+    list: Product list
+    add: Add
+    filter: Filter
+    search: Search
