@@ -12,3 +12,6 @@ body:
       add: Ajouter
       filter: Filtre
       search: Recherche
+
+login:
+      title: Bienvenue

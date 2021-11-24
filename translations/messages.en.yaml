@@ -11,3 +11,6 @@ body:
     add: Add
     filter: Filter
     search: Search
+
+login:
+    title: Please sign in

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Credit;
 use App\Entity\Customer;
+use App\Entity\User;
 use App\Form\CustomerType;
 use App\Form\MontantCreditType;
 use App\Form\SearchCustomerType;
@@ -11,9 +12,11 @@ use App\Repository\CustomerRepository;
 use App\Service\CustomerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class CustomerController extends AbstractController
 {
@@ -39,6 +42,8 @@ class CustomerController extends AbstractController
      */
     public function index(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $showForm = '';
         $form = $this->createForm(SearchCustomerType::class);
         $form->handleRequest($request);
@@ -63,6 +68,12 @@ class CustomerController extends AbstractController
      */
     public function view($id, Request $request): Response
     {
+        /** @var User $connectedUser */
+        $connectedUser = $this->getUser();
+        if (!($connectedUser->hasRole('ROLE_ADMIN') || intval($id) === $connectedUser->getId())) {
+            throw new AccessDeniedException('Only an admin can do this!!!!');
+        }
+
         $customer = $this->customerRepository->find($id);
         $sum = 0;
 
@@ -106,6 +117,7 @@ class CustomerController extends AbstractController
 
     /**
      * @Route ("/customer/add", name="customer-add")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function add(Request $request): Response
     {
@@ -129,6 +141,7 @@ class CustomerController extends AbstractController
 
     /**
      * @Route ("/customer/edit/{id}", name="customer-edit")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit($id, Request $request): Response
     {
@@ -154,6 +167,7 @@ class CustomerController extends AbstractController
 
     /**
      * @Route ("/customer/delete/{id}", name="customer-delete")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete($id): Response
     {
