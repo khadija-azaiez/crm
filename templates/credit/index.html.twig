@@ -1,0 +1,44 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    <div class="row mt-4 mb-4">
+        <div class="col-12">
+            <h1>Liste de credit</h1>
+        </div>
+    </div>
+
+    <div class="row mt-4 mb-4">
+        <div class=" col-lg-12">
+            <a class="btn btn-primary float-right" data-toggle="collapse" href="#search-form" role="button"
+               aria-expanded="false" aria-controls="search-form">
+                {{'body.filter'|trans }}
+            </a>
+
+            <a class="btn btn-primary float-right mr-2" href="{{ path('credit-add') }}">{{'body.add'|trans }}</a>
+        </div>
+    </div>
+
+    <div class="row mt-2 mb-2">
+        <div class="col-12 collapse {% if show is same as true %} show {% endif %}" id="search-form">
+            {{ form_start(form) }}
+            {{ form_row(form.name) }}
+            <button type="submit" class="btn btn-outline-dark col-12 mb-2 mt-2 col-md-2">{{'body.search'|trans }}</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+
+    <div class="row">
+        {% for credit in credits %}
+            {% include 'credit/credit-card.html.twig'  with {
+                id: credit.id,
+                montant: credit.montant,
+                date: credit.date,
+                id_customer: credit.idCustomer,
+                name_customer: credit.nameCustomer
+
+            }only %}
+        {% endfor %}
+    </div>
+
+{% endblock %}

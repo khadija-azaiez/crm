@@ -32,6 +32,11 @@ class Spend
      */
     private $montant;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Supplier::class, inversedBy="spends")
+     */
+    private $supplier;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +74,18 @@ class Spend
     public function setMontant(float $montant): self
     {
         $this->montant = $montant;
+
+        return $this;
+    }
+
+    public function getSupplier(): ?Supplier
+    {
+        return $this->supplier;
+    }
+
+    public function setSupplier(?Supplier $supplier): self
+    {
+        $this->supplier = $supplier;
 
         return $this;
     }

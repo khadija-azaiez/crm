@@ -49,3 +49,7 @@
     height: 38px;
     padding: 0;
 }
+
+.dropdown-item.active, .dropdown-item:active {
+    background-color: #a8d1e5;
+}

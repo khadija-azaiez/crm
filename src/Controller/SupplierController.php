@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Spend;
 use App\Entity\Supplier;
 use App\Form\SearchSupplierType;
 use App\Form\SupplierType;
@@ -57,12 +58,11 @@ class SupplierController extends AbstractController
      */
     public function view($id): Response
     {
-        $affich = $this->supplierRepository->find($id);
+        $supplier = $this->supplierRepository->find($id);
 
         return $this->render('supplier/view.html.twig', [
-            'affichage' => $affich
+            'affichage' => $supplier
         ]);
-
     }
 
     /**

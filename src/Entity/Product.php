@@ -27,6 +27,11 @@ class Product
      */
     private $prix;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Supplier::class, inversedBy="products")
+     */
+    private $supplier;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +49,8 @@ class Product
         return $this;
     }
 
+
+
     public function getPrix(): ?float
     {
         return $this->prix;
@@ -52,6 +59,19 @@ class Product
     public function setPrix(float $prix): self
     {
         $this->prix = $prix;
+
+        return $this;
+    }
+
+
+    public function getSupplier(): ?Supplier
+    {
+        return $this->supplier;
+    }
+
+    public function setSupplier(?Supplier $supplier): self
+    {
+        $this->supplier = $supplier;
 
         return $this;
     }

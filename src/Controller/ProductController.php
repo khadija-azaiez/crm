@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class ProductController extends AbstractController
 {
@@ -46,7 +47,7 @@ class ProductController extends AbstractController
             $products = $this->productRepository->findProductsGraterThanValue($product->getPrix());
         } else {
             $showForm = false;
-            $products = $this->productRepository->findAll();
+            $products = $this->productRepository->getAllProducts();
         }
 
         return $this->render("product/index.html.twig", [
@@ -71,6 +72,7 @@ class ProductController extends AbstractController
 
     /**
      * @Route("/product/add", name="product-add")
+     *  @IsGranted("ROLE_ADMIN")
      */
     public function add(Request $request): Response
     {
@@ -97,6 +99,7 @@ class ProductController extends AbstractController
 
     /**
      * @Route("/product/edit/{id}", name="product-edit")
+     *  @IsGranted("ROLE_ADMIN")
      */
     public function edit($id, Request $request): Response
     {
@@ -122,6 +125,7 @@ class ProductController extends AbstractController
 
     /**
      * @Route("/product/delete/{id}", name="product-delete")
+     *  @IsGranted("ROLE_ADMIN")
      */
     public function delete($id): Response
     {

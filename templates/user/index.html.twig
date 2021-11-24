@@ -1,0 +1,20 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+    <div>
+       <h1>Liste des utilisateurs</h1>
+    </div>
+
+    <div>
+        {% for users in user %}
+            {% include 'user/card.html.twig' with {
+                id: users.id,
+                name: users.name,
+                email: users.email,
+                password: users.password
+            } only %}
+        {% endfor %}
+    </div>
+
+{% endblock %}

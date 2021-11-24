@@ -14,30 +14,53 @@
         <div class="collapse navbar-collapse col-md-6 ml-auto " id="bs-example-navbar-collapse-1">
             <ul class="navbar-nav ">
                 <li class="nav-item {% if (app.request.attributes.get('_route') starts with 'product-') %} active {% endif %}">
-                    <a class="nav-link pl-2 " href="{{ path ('product-list') }}">PRODUIT <span class="sr-only">(current)</span></a>
+                    <a class="nav-link pl-2 " href="{{ path ('product-list') }}">{{ 'header.menu.product'|trans}} <span class="sr-only">(current)</span></a>
                 </li>
+                {% if is_granted('ROLE_ADMIN') %}
                 <li class="nav-item {% if (app.request.attributes.get('_route') starts with 'customer-')%} active {% endif %}">
-                    <a class="nav-link pl-2" href="{{ path('customer-list') }}">CLIENT</a>
+                    <a class="nav-link pl-2" href="{{ path('customer-list') }}">{{ 'header.menu.customer'|trans}}</a>
                 </li>
-                <li class="nav-item {% if (app.request.attributes.get('_route') starts with 'supplier-') %} active {% endif %}">
-                    <a class="nav-link pl-2" href="{{ path('supplier-list') }}">FOURNISSEUR</a>
+                    {% endif %}
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item {% if (app.request.attributes.get('_route') starts with 'supplier-') %} active {% endif %}">
+                        <a class="nav-link pl-2" href="{{ path('supplier-list') }}">{{ 'header.menu.supplier'|trans}}</a>
+                    </li>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
+                <li class="nav-item {% if (app.request.attributes.get('_route') starts with 'credit-') %} active {% endif %}">
+                    <a class="nav-link pl-2" href="{{ path('credit-list') }}">{{ 'header.menu.credit'|trans}}</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link pl-2" href="#">CAISSE</a>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
+                <li class="nav-item dropdown {% if (app.request.attributes.get('_route') starts with 'spend-') %} active {% endif %}">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ 'header.menu.spend'|trans}}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Recettes</a>
+                        <a class="dropdown-item" href="{{ path('spend-list') }}">Dépenses</a>
+                    </div>
                 </li>
+                {% endif %}
             </ul>
 
-
-            <div class="navbar-nav  ml-md-auto">
-                <div class="icon nav-item active pt-md-0 pb-md-0 btn-connexion">
-                    <a class="btn " href="#"
-                       title="se connecter">
+                   <div class="nav-item dropdown" >
+                    <a class="navbar-nav dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
                             <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                         </svg>
                     </a>
-                </div>
-            </div>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        {% if is_granted('IS_ANONYMOUS') %}
+                        <a class="dropdown-item" href="{{ path('app_login') }}">se connecter</a>
+                        {% endif %}
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <a class="dropdown-item" href="{{ path('app_logout') }}">se deconnecter</a>
+                        {% endif %}
+                    </div>
+                   </div>
+               
         </div>
     </nav>
 </div>

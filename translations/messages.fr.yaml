@@ -1,0 +1,17 @@
+header:
+      menu:
+            product: Produit
+            customer: Client
+            supplier: Fournisseur
+            credit: Credit
+            spend: Dépense
+
+
+body:
+      list: Liste de produit
+      add: Ajouter
+      filter: Filtre
+      search: Recherche
+
+login:
+      title: Bienvenue
