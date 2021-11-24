@@ -13,8 +13,9 @@
             <a class="btn btn-primary float-right" data-toggle="collapse" href="#search-form" role="button" aria-expanded="false" aria-controls="search-form">
                  {{ 'body.filter'|trans }}
             </a>
-
+            {% if is_granted('ROLE_ADMIN') %}
             <a class="btn btn-primary float-right mr-2" href="{{ path('product-add') }}">{{ 'body.add'|trans }}</a>
+            {% endif %}
         </div>
     </div>
 
